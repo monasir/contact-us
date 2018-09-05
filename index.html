@@ -1,0 +1,274 @@
+<?php
+    $msg = "";
+    use PHPMailer\PHPMailer\PHPMailer;
+    
+    include_once "PHPMailer/PHPMailer.php";
+    include_once "PHPMailer/Exception.php";
+    include_once "PHPMailer/SMTP.php";
+    // define variables and set to empty values
+    $name_error = $email_error = $phone_error = $url_error = "";
+    $name = $email = $phone = $message = $url = $success = "";
+
+    if(isset($_POST['submit'])) {
+        $subject = "Interested customers";
+
+        //$name = $_POST['name'];
+        //$email = $_POST['email']; 
+        //$phone = $_POST['phone'];
+        $message = test_input($_POST["message"]); 
+
+        if (empty($_POST["name"])) {
+            $name_error = "Name is required";
+          } else {
+            $name = test_input($_POST["name"]);
+            // check if name only contains letters and whitespace
+            if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+              $name_error = "Only letters and white space allowed"; 
+            }
+          }
+         
+        if (empty($_POST["email"])) {
+            $email_error = "Email is required";
+          } else {
+            $email = test_input($_POST["email"]);
+            // check if e-mail address is well-formed
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              $email_error = "Invalid email format"; 
+            }
+         }
+
+        if (empty($_POST["phone"])) {
+            $phone_error = "Phone is required";
+          } else {
+            $phone = test_input($_POST["phone"]);
+            // check if e-mail address is well-formed
+            if (!preg_match('/^[0-9]\d{7,}$/',$phone)) {
+              $phone_error = "Invalid phone number"; 
+            }
+        }
+
+        if(isset($_FILES['attachment']['name']) && $_FILES['attachment']['name'] != "") {
+            $file = "attachment/" . basename($_FILES['attachment']['name']);
+            move_uploaded_file($_FILES['attachment']['tmp_name'], $file);
+
+        } else {
+            $file = "";
+        }
+
+        if ($name_error == '' and $email_error == '' and $phone_error == '' and $url_error == '' ){
+            $message_body = '';
+            unset($_POST['submit']);
+            foreach ($_POST as $key => $value){
+                $message_body .=  "$key: $value<br />";
+            }
+            $mail = new PHPMailer();
+
+            //if we want to send via SMTP
+            $mail-> Host= "smtp.gmail.com";
+            //$mail->isSMTP();
+            $mail->SMTPAuth=true;
+            $mail->Username="nasmo795@gmail.com";
+            $mail->Password="Inter329";
+            $mail->SMTPSecure = "ssl";//TLS
+            $mail->Port = 465; //587
+
+
+            
+            $mail->addAddress('mohd.204@live.com');
+            $mail->setFrom("nasmo795@gmail.com");
+            $mail->Subject= $subject;
+            $mail->isHTML(true);
+            $mail->Body = $message_body;
+            $mail->addAttachment($file);
+
+            if ($mail->send()){
+                $success ="Your email has been sent, thank you";
+                $name = $email = $phone = $message= "";
+
+            }
+            else 
+                $success= "Please try agian!";
+                //echo $mail->ErrorInfo;    
+        
+        }
+
+        
+            
+
+
+    }
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contact form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script src="slider.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    
+</head>
+<body>
+    <div class="main-container">
+                <div class="hack-fix">
+                    <header>
+                        <a href="#"><img src="HR.jpg" alt="logo" class="image"></a>
+                        <a href="#"><h3>MANSERVE</h3></a>
+                    </header>
+                </div>
+
+                <div class="pg-content">
+                    <div class="div1">
+                        <h1>MAKE YOUR LIFE EASIER WITH OUR MULTITUDE HUMAN RESOURCE</h1>
+                        <h4 class="h4">EMAIL US AT MOHD.204@LIVE.COM</h4>
+                    </div>
+
+                    <div class="div2">
+                        <img src="hrwoman.jpg" alt="human resource woman" height="335" width="300">
+                    </div> 
+
+
+                    <div class="slidecont">
+                            <!-- Slideshow container -->
+                        <div class="slideshow-container">
+
+                            <!-- Full-width images with number and caption text -->
+                            <div class="mySlides fade">
+                                <div class="numbertext">1 / 3</div>
+                                <img src="img1.jpg" style="width:100%">
+                                <div class="text">Caption Text</div>
+                            </div>
+                        
+                            <div class="mySlides fade">
+                                <div class="numbertext">2 / 3</div>
+                                <img src="img2.jpg" style="width:100%">
+                                <div class="text">Caption Two</div>
+                            </div>
+                        
+                            <div class="mySlides fade">
+                                <div class="numbertext">3 / 3</div>
+                                <img src="img3.jpg" style="width:100%">
+                                <div class="text">Caption Three</div>
+                            </div>
+        
+                            <!-- Next and previous buttons -->
+                            <a href="#/" class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a href="#/" class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                        <br>
+        
+                        <!-- The dots/circles -->
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span> 
+                            <span class="dot" onclick="currentSlide(2)"></span> 
+                            <span class="dot" onclick="currentSlide(3)"></span> 
+                        </div>
+                    </div>
+
+
+                    <div class="contactus">
+                    <button  class ="button" style="width:200px; margin-top:10px; margin-left:25px;">Contact Us</button>
+                        
+                    
+                        <div class="backdrop"></div>
+                        <div class="modal">
+                            <form>
+                                <input type="text" name="name">
+                                <input type="text" name="email">
+                                <input type="text" name="phone">
+                                <button type="submit" name="submit">Submit</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+
+        </div>
+
+    <script>
+            showSlides(slideIndex);
+            var buttonPop = document.querySelector('.button');
+            var backdrop = document.querySelector('.backdrop');
+            var modal = document.querySelector('.modal');
+
+            function openModal() {
+                backdrop.style.display = 'block';
+                modal.style.display = 'block';
+            }
+
+
+            function closeModal() {
+                backdrop.style.display = 'none';
+                modal.style.display = 'none';
+            }
+
+
+         
+            buttonPop.addEventListener('click', openModal);
+
+            backdrop.onclick = closeModal;
+
+            
+    </script>
+</body>
+</html>
+
+
+$name = test_input($_POST["name"]);
+$email = test_input($_POST["email"]);
+$phone = test_input($_POST["phone"]);
+
+
+
+    
+$mail = new PHPMailer();
+
+//if we want to send via SMTP
+$mail-> Host= "smtp.gmail.com";
+//$mail->isSMTP();
+$mail->SMTPAuth=true;
+$mail->Username="nasmo795@gmail.com";
+$mail->Password="Inter329";
+$mail->SMTPSecure = "ssl";//TLS
+$mail->Port = 465; //587
+
+
+    
+$mail->addAddress('mohd.204@live.com');
+$mail->setFrom("nasmo795@gmail.com");
+$mail->Subject= $subject;
+$mail->isHTML(true);
+$mail->Body = $email;
+   
+
+    if ($mail->send()){
+        $success ="Your email has been sent, thank you";
+        $name = $email = $phone = $message= "";
+
+    }
+    else {
+        $success= "Please try agian!";
+        echo $mail->ErrorInfo;    
+
+}
+
+
+    
+
+
+
+function test_input($data) {
+$data = trim($data);
+$data = stripslashes($data);
+$data = htmlspecialchars($data);
+return $data;
+}
+}

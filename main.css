@@ -1,0 +1,253 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after  {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: sans-serif;
+    padding: 0;
+    margin:0;
+}
+a {
+    color:inherit;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    
+}
+
+.main-container {
+    display: flex;
+    flex-flow: column;
+    margin:0;
+    padding:0;
+}
+.pg-content {
+    padding:0;
+}
+header,
+.pg-content,
+.div1,
+.div2,
+.slidecont,
+.contactus {
+    padding: 16px;
+    text-align: center;
+}
+header {
+    background: #061121;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items:center;
+    justify-content: flex-start;
+    padding: 0;
+    margin:0;
+}
+div div header a img {
+    height: 55px;
+    
+
+}
+h3 {
+    color:white;
+    padding: 0  0 0 20px ;
+    margin:0;
+    
+}
+.hack-fix {
+    flex:4vw;
+    margin:0;
+    padding:0;
+}
+
+.pg-content {
+    flex:70vw;
+    background:#13233d;
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-rows: auto;
+    grid-template-areas: "div1 div2"
+                         "slidecont slidecont"
+                         "contus contus";
+    grid-gap: 1rem;
+    margin:0;
+    padding-top:10px;
+    }
+
+.div1 {
+    background:#13233d;
+    grid-area: div1;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    display:flex;
+    flex-flow: column wrap;
+    margin:0;
+    padding:0;
+}
+h1 {
+    color:white;
+}
+h4 {
+    color: yellow;
+}
+
+p {
+    color: white;
+}
+.div2 {
+    background:#13233d;
+    grid-area: div2;
+    margin:0;
+    padding:0;
+}
+
+.slidecont {
+    background:#13233d;
+    grid-area: slidecont;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-flow:column wrap;
+    
+}
+.aboutus {
+   background: #bec4ce;
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-rows: auto;
+    grid-template-areas: "h3 para1"
+                         "h3 para2";
+    grid-gap: 1rem;
+    margin:0;
+    padding:0;
+    
+
+}
+
+.h3 {
+    background:#d7e0ef;
+    grid-area: h3;
+    color:black;
+    padding: 3vw;
+}
+
+.para1 {
+    background:#d7e0ef;
+    grid-area: para1;
+    color:black;
+    padding: 3vw;
+}
+
+.para2 {
+    background:#d7e0ef;
+    grid-area: para2;
+    color:black;
+    padding: 3vw;
+}
+
+.services {
+    background: #434547;
+    
+    padding-bottom:5px;
+    
+}
+
+.contactus {
+    background:#13233d;
+    grid-area: contus;
+    margin:5px;
+    padding:5px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.dot {
+    height: 70px;
+    width: 70px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin:5px;
+    padding:5px;
+    text-align: center;
+
+    
+    
+}
+ .dotdot {
+     display: flex;
+     flex-flow: row wrap;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     align-content: space-between;
+ }
+
+/*form*/
+.form {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
+    justify-content: center;   
+    align-items: center;
+    width: 35%;
+    border: 1px solid white;
+
+    
+}
+
+label {
+    align-self: flex-start;
+    color: white;
+    
+}
+
+.form-input:hover {
+    background: rgb(228, 226, 226);
+}
+
+.form-input:focus, 
+.form-button {
+    outline: none;
+    cursor: pointer;
+}
+
+.form-input {
+    background: #d7e0ef;
+    border: 1px solid black;  
+    width: 100%;
+    padding: 3px;
+}
+
+textarea {
+    resize: none;
+    padding: 3px;
+}
+
+.submit-button {
+    margin-top: 5px;
+    padding: 5px;
+    background: #979695;
+    color: white;
+    align-self: center;
+}
+
+.submit-button:active,
+.submit-button:hover {
+    cursor: pointer;
+}
+
+.submit-button:focus {
+    outline: none;
+}
+  
